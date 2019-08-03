@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-employee-detail',
@@ -7,16 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EmployeeDetailComponent implements OnInit {
 
-  // copy of employees object is created in order to access the object
-  public employees = [
-    { id: 1, name: 'sagar', age: 30 },
-    { id: 2, name: 'rahul', age: 20 },
-    { id: 3, name: 'simran', age: 24 },
-    { id: 4, name: 'yogesh', age: 75 }
-  ];
-  constructor() { }
+  public employees = [];
+  // we declared a private local variable _employeeService that gives us an instance of EmployeeService
+  constructor(private _employeeService: EmployeeService) { }
+  // now that we have instance of EmployeeService now we ae going to use this instance to fetch the employee data
+  // and the code for that goes inside the ngOnInit() life cycle  hook
+  // ngOnInit() hook gets called once the component has been initialized
 
   ngOnInit() {
+    this.employees = this._employeeService.getEmployees();
   }
 
 }
